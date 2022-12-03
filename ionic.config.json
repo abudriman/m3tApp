@@ -1,0 +1,7 @@
+{
+  "name": "m3tApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
