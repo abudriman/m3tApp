@@ -1,0 +1,5 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : { "namespace": "android_app", "package_name": "top.m3t.abud",
+                 "sha256_cert_fingerprints": ["DE:66:F7:DC:3E:1A:06:3B:04:91:F7:75:31:16:77:90:B0:B0:59:CD:83:9C:DA:9E:80:1D:F2:6B:78:1E:47:82"] }
+  }]

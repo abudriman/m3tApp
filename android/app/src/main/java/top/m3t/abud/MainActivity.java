@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package top.m3t.abud;
 
 import com.getcapacitor.BridgeActivity;
 

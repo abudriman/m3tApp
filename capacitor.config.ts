@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'top.m3t.abud',
   appName: 'm3tApp',
   webDir: 'dist',
   bundledWebRuntime: false
