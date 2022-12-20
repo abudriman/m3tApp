@@ -1,2 +1,8 @@
 export { default as LoginPage } from './LoginPage.vue'
 export { default as HomePage } from './HomePage.vue'
+export { default as TeamPage } from './TeamPage.vue'
+export * from './ConditionMonitoringPage'
+export { default as HistoryMaintenancePage } from './HistoryMaintenancePage.vue'
+export { default as WorkplanPage } from './WorkplanPage.vue'
+export { default as CapexPage } from './CapexPage.vue'
+export * from './MdoTdoPage'

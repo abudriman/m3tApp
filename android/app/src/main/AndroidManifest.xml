@@ -27,6 +27,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="capp" android:host="m3t.abud.top" />
+                <data android:scheme="https" android:host="m3t.abud.top" />
             </intent-filter>
 
         </activity>

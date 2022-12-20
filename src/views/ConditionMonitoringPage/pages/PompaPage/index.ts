@@ -1,0 +1,1 @@
+export { default as PompaPage } from './PompaPage.vue'
