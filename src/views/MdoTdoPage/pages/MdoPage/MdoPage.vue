@@ -6,74 +6,89 @@
                     <ion-back-button @click="router.back()"></ion-back-button>
                 </ion-buttons>
                 <ion-title>
-                    TDO
+                    MDO
                 </ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content id="main-content">
             <div class="main-grid">
                 <section class="content">
-                    <img src="@/assets/img/tdo-part-1.png" alt="">
-                    <p>TDO (TRANVERSAL DIRECT ORIENTER) adalah mesin yang digunakan pada pabrik film plastik untuk
-                        menarik / streching film searah tranversal
-
+                    <img src="@/assets/img/mdo-part-1.png" alt="">
+                    <p>MDO (MACHINE DIRECT ORIENTER) adalah mesin yang digunakan pada pabrik film plastik untuk menarik
+                        / streching film searah jalannya mesin
                     </p>
+                    <img src="@/assets/img/mdo-part-2.png" alt="">
                     <ion-accordion-group>
                         <ion-accordion value="first">
                             <ion-item slot="header" color="light">
-                                <ion-label>TDO Parts</ion-label>
+                                <ion-label>MDO Parts</ion-label>
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button>HANDWHEEL SPINDLE</button>
-                                    <button>COOLING TRACK</button>
-                                    <button>AIRING SYSTEM</button>
-                                    <button>AIR SHOWER</button>
-                                    <button>EDGE GUIDE</button>
-                                    <button>LUBRICATION</button>
-                                    <button>TRACK SYSTEM</button>
-                                    <button>HEAT EXCHANGER</button>
+                                    <button @click="router.push('/mdo/niproll')">NIP ROLL</button>
+                                    <button @click="router.push('/mdo/draw-gap')">DRAW GAP</button>
+                                    <button @click="router.push('/mdo/hcu-pump')">HCU PUMP</button>
+                                    <button @click="router.push('/mdo/feeding-chain')">FEEDING CHAIN</button>
+                                    <button @click="router.push('/mdo/rotary-joint')">ROTARY JOINT</button>
+                                    <button @click="router.push('/mdo/preheating-chrome-roll')">PREHEATING CHROME
+                                        ROLL</button>
+                                    <button @click="router.push('/mdo/preheating-teflon-roll')">PREHEATING TEFLON
+                                        ROLL</button>
+                                    <button @click="router.push('/mdo/stretching-roll')">STRECHING ROLL</button>
+                                    <button @click="router.push('/mdo/annealing-roll')">ANNEALING ROLL</button>
+                                    <button @click="router.push('/mdo/idle-roll')">IDLE ROLL</button>
                                 </div>
                             </div>
                         </ion-accordion>
-
-
                     </ion-accordion-group>
-                    <ion-accordion-group><ion-accordion value="first">
+                    <ion-accordion-group>
+                        <ion-accordion value="first">
                             <ion-item slot="header" color="light">
-                                <ion-label>TDO Problem Mekanik</ion-label>
+                                <ion-label>MDO Problem Mekanik</ion-label>
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button>DRAT CHAIN LUBRICATION AUS</button>
-                                    <button>SELANG COOLING TRACK BOCOR</button>
-                                    <button>FILM LEPAS CLIP</button>
-                                    <button>CHAIN TENSION MATI</button>
-                                    <button>TEMPERATUR GEARBOX TINGGI</button>
-                                    <button>TORSI TINGGI</button>
-                                    <button>JALUR LUBRIKASI BOCOR/MAMPET</button>
-                                    <button>FLOW AIRING KURANG</button>
+                                    <button>CARDANT SHAFT
+                                        KASAR</button>
+                                    <button>DRAW GAP MACET</button>
+                                    <button>ROLL UNBALANCE</button>
+                                    <button>BEARING ROLL
+                                        KASAR</button>
+                                    <button>RANTAI FEEDING
+                                        PUTUS</button>
+                                    <button>POMPA
+                                        REMBER/KASAR</button>
+                                    <button>TEMPERATUR TIDAK
+                                        TERCAPAI</button>
+                                    <button>ROTARY JOINT
+                                        REMBES/GOYANG</button>
                                 </div>
                             </div>
-                        </ion-accordion></ion-accordion-group>
-                    <ion-accordion-group><ion-accordion value="first">
+                        </ion-accordion>
+                    </ion-accordion-group>
+                    <ion-accordion-group>
+                        <ion-accordion value="first">
                             <ion-item slot="header" color="light">
-                                <ion-label>TDO Problem Proses</ion-label>
+                                <ion-label>MDO Problem Proses</ion-label>
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button>CON OUT SPEC</button>
-                                    <button>BREAK</button>
-                                    <button>FILM MENCIUT</button>
-                                    <button>KORUGASI</button>
-                                    <button>K1 NETRAL ZONE</button>
-                                    <button>GARIS PADA FILM</button>
-                                    <button>SPOT OVAL</button>
-                                    <button>FLATNESS</button>
+                                    <button>FILM KOTOR</button>
+                                    <button>PROBLEM
+                                        TEMPERATUR</button>
+                                    <button>FLEK PADA FILM</button>
+                                    <button>TALI FEEDING
+                                        PUTUS</button>
+                                    <button>SPOT PADA FILM</button>
+                                    <button>SKRATCH PADA
+                                        FILM</button>
+                                    <button>BREAK MDO</button>
+                                    <button>FILM BERGEL
+                                        OMBANG</button>
                                 </div>
                             </div>
-                        </ion-accordion></ion-accordion-group>
-
+                        </ion-accordion>
+                    </ion-accordion-group>
                 </section>
             </div>
         </ion-content>
@@ -139,7 +154,7 @@ import { AuthSession } from '@supabase/supabase-js';
 import { logOut } from 'ionicons/icons'
 
 export default defineComponent({
-    name: 'TdoPage',
+    name: 'MdoPage',
     components: {
         IonPage,
         IonContent,

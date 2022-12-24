@@ -6,34 +6,14 @@
                     <ion-back-button @click="router.back()"></ion-back-button>
                 </ion-buttons>
                 <ion-title>
-                    Team
+                    {{ pageTitle }}
                 </ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content id="main-content">
             <div class="main-grid">
                 <section class="content">
-                    <div class="team-card">
-                        <img src="@/assets/img/team/team1.png" alt="">
-                    </div>
-                    <div class="team-card">
-                        <img src="@/assets/img/team/team2.png" alt="">
-                    </div>
-                    <div class="team-card">
-                        <img src="@/assets/img/team/team3.png" alt="">
-                    </div>
-                    <div class="team-card">
-                        <img src="@/assets/img/team/team4.png" alt="">
-                    </div>
-                    <div class="team-card">
-                        <img src="@/assets/img/team/team5.png" alt="">
-                    </div>
-                    <div class="team-card">
-                        <img src="@/assets/img/team/team6.png" alt="">
-                    </div>
-                    <div class="team-card">
-                        <img src="@/assets/img/team/team7.png" alt="">
-                    </div>
+                    <slot></slot>
                 </section>
             </div>
         </ion-content>
@@ -45,16 +25,8 @@
 outline: 1px solid red;
 } */
 
-.team-card img {
-    width: 100%;
-}
-
-.team-card:not(:last-child) {
-    margin-bottom: 20px;
-}
-
 div.main-grid {
-    /* background-color: red; */
+    /* background-color: white; */
     min-height: 100%;
     display: grid;
     grid-template-rows: 1fr;
@@ -68,37 +40,32 @@ section.content {
     align-items: stretch;
     justify-content: flex-start;
     margin: 0 8%;
+    text-align: left;
 }
 
-.navigation {
-    color: #000000;
-    padding: 30px 10px;
-    margin: 10px 15px;
-    background-color: #CFE7F5;
-    border-radius: 10px;
+section.content p {
+    text-align: left;
 }
 
-.home-menu {
-    /* background-color: red; */
-    min-height: 100%;
+section.content>* {
+    margin: 10px 0px;
+}
+
+
+.accord-item {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
 }
 
-.home-menu #logout-button {
-    padding: 20px 5px;
-    background-color: #0000;
-    border-top: 1px solid #FFF;
-    display: flex;
-    font-size: 20px;
-    column-gap: 8px;
+.accord-item>button {
+    padding: 20px;
+    margin: 3px 0px;
 }
 </style>
   
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
-import supabase from '../supabase'
+import supabase from '@/supabase'
 import { useRoute, useRouter } from 'vue-router';
 import {
     IonPage,
@@ -107,13 +74,16 @@ import {
     IonToolbar,
     IonTitle,
     IonButtons,
-    IonBackButton
+    IonBackButton,
 } from '@ionic/vue';
 import { AuthSession } from '@supabase/supabase-js';
 import { logOut } from 'ionicons/icons'
 
 export default defineComponent({
-    name: 'TeamPage',
+    name: 'NiprollPage',
+    props: {
+        pageTitle: String
+    },
     components: {
         IonPage,
         IonContent,
@@ -124,7 +94,6 @@ export default defineComponent({
         IonBackButton,
     },
     setup() {
-        console.log('from TeamPage.vue')
         const route = useRoute()
         const router = useRouter()
         const onLogout = async () => {
@@ -158,7 +127,7 @@ export default defineComponent({
         return {
             logOut,
             onLogout,
-            router
+            router,
         }
 
     },

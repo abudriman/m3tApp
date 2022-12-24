@@ -52,6 +52,66 @@ const routes: Array<RouteRecordRaw> = [
     component: views.MdoPage
   },
   {
+    path: '/mdo/niproll',
+    component: views.NiprollPage
+  },
+  {
+    path: '/mdo/stretching-roll',
+    component: views.StretchingRollPage
+  },
+  {
+    path: '/mdo/preheating-chrome-roll',
+    component: views.PreheatingRollPage
+  },
+  {
+    path: '/mdo/preheating-teflon-roll',
+    component: views.PreheatingTeflonRollPage
+  },
+  {
+    path: '/mdo/annealing-roll',
+    component: views.AnnealingRollPage
+  },
+  {
+    path: '/mdo/idle-roll',
+    component: views.IdleRollPage
+  },
+  {
+    path: '/mdo/feeding-chain',
+    component: views.FeedingChainPage
+  },
+  {
+    path: '/mdo/hcu-pump',
+    component: views.HcuPumpPage
+  },
+  {
+    path: '/mdo/rotary-joint',
+    component: views.RotaryJointPage
+  },
+  {
+    path: '/mdo/draw-gap',
+    component: views.DrawGapPage
+  },
+  {
+    path: '/tdo-problem/break',
+    component: views.BreakPage
+  },
+  {
+    path: '/tdo-problem/film-menciut',
+    component: views.FilmMenciutPage
+  },
+  {
+    path: '/tdo-problem/wax',
+    component: views.WaxPage
+  },
+  {
+    path: '/tdo-problem/k1-netral-zone',
+    component: views.K1NetralZonePage
+  },
+  {
+    path: '/tdo-problem/cof-out-spec',
+    component: views.CofOOSPage
+  },
+  {
     path: '/kamus-mdo-tdo/tdo',
     component: views.TdoPage
   },

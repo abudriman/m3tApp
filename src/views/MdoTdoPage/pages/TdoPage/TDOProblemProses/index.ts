@@ -1,0 +1,5 @@
+export { default as BreakPage } from './BreakPage.vue'
+export { default as FilmMenciutPage } from './FilmMenciutPage.vue'
+export { default as WaxPage } from './WaxPage.vue'
+export { default as K1NetralZonePage } from './K1NetralZonePage.vue'
+export { default as CofOOSPage } from './CofOOSPage.vue'
