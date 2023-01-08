@@ -8,6 +8,9 @@
             </ion-header>
             <ion-content class="ion-padding">
                 <div class="home-menu">
+                    <div>
+                        <p>M3T V.0.2 by Fauzan & Abud</p>
+                    </div>
                     <button id="logout-button" @click="onLogout">
                         <ion-icon :icon="logOut"></ion-icon>
                         <span>Logout</span>
@@ -70,10 +73,12 @@ section.content {
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
 }
 
 .home-menu #logout-button {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     padding: 20px 5px;
     background-color: #0000;
     border-top: 1px solid #FFF;
