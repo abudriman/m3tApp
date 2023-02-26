@@ -24,6 +24,10 @@ const routes: Array<RouteRecordRaw> = [
     component: views.PompaPage
   },
   {
+    path: '/condition-monitoring/pompa-detail/:id',
+    component: views.PompaDetailPage
+  },
+  {
     path: '/condition-monitoring/heat-exchanger',
     component: views.HeatExchangerPage
   },

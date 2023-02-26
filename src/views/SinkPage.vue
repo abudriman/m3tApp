@@ -1,7 +1,6 @@
 <template>
     <private-page pageTitle="Pompa">
-        <nav-button v-for="pompa in pompas" :key="pompa.id" :title="pompa.name"
-            @click="router.push(`/condition-monitoring/pompa-detail/${pompa.id}`)"></nav-button>
+        <p>this is sink page</p>
     </private-page>
 </template>
 
@@ -15,7 +14,6 @@ outline: 1px solid red;
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import {
     PrivatePage,
-    NavButton
 } from '@/components'
 import supabase from '@/supabase';
 import { useRouter } from 'vue-router';
@@ -24,7 +22,6 @@ export default defineComponent({
     name: 'PompaPage',
     components: {
         PrivatePage,
-        NavButton
     },
     setup() {
         const router = useRouter()

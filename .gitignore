@@ -33,3 +33,5 @@ npm-debug.log*
 
 *.env
 .env
+src/theme/tailwind-output.css
+M3T APP.ppt

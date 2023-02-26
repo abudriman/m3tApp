@@ -8,6 +8,10 @@
                 <ion-title>
                     {{ pageTitle }}
                 </ion-title>
+                <ion-buttons slot="end">
+                    <!-- <ion-icon slot="icon-only" :icon="home" @click="router.replace('/home')"></ion-icon> -->
+                    <slot name="end"></slot>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content id="main-content">
@@ -41,6 +45,9 @@ section.content {
     justify-content: flex-start;
     margin: 0 8%;
     text-align: left;
+    overflow-x: hidden;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 section.content p {
@@ -62,7 +69,7 @@ section.content>* {
     margin: 3px 0px;
 }
 </style>
-  
+
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import supabase from '@/supabase'
@@ -75,9 +82,10 @@ import {
     IonTitle,
     IonButtons,
     IonBackButton,
+    // IonIcon
 } from '@ionic/vue';
 import { AuthSession } from '@supabase/supabase-js';
-import { logOut } from 'ionicons/icons'
+import { logOut, home } from 'ionicons/icons'
 
 export default defineComponent({
     name: 'NiprollPage',
@@ -92,6 +100,7 @@ export default defineComponent({
         IonTitle,
         IonButtons,
         IonBackButton,
+        // IonIcon
     },
     setup() {
         const route = useRoute()
@@ -104,7 +113,10 @@ export default defineComponent({
                 router.replace('/')
             }
         }
-
+        const icons = {
+            logOut,
+            home
+        }
         onMounted(async () => {
             const query = route.query as unknown as AuthSession
             if (query?.access_token) {
@@ -125,7 +137,7 @@ export default defineComponent({
         })
 
         return {
-            logOut,
+            ...icons,
             onLogout,
             router,
         }
@@ -133,4 +145,3 @@ export default defineComponent({
     },
 });
 </script>
-  

@@ -20,7 +20,7 @@
 
 <style scoped>
 /* * {
-    outline: 1px solid red;
+  outline: 1px solid red;
 } */
 
 div.main-grid {
@@ -60,7 +60,7 @@ section.sign-in-button {
     margin-right: 10px;
 }
 </style>
-  
+
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { logoGoogle } from 'ionicons/icons';
@@ -74,15 +74,15 @@ import { Preferences } from '@capacitor/preferences';
 
 async function signInWithGoogle() {
     const url = `${process.env.VUE_APP_SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${process.env.VUE_APP_REDIRECT_URL}/home`
-    await Browser.open({
-        url: url
-    });
-    // supabase.auth.signInWithOAuth({
-    //     provider: 'google',
-    //     options: {
-    //         redirectTo: `${process.env.VUE_APP_REDIRECT_URL}/home`
-    //     }
-    // })
+    // await Browser.open({
+    //     url: url
+    // });
+    supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: `${process.env.VUE_APP_REDIRECT_URL}/home`
+        }
+    })
 }
 
 export default defineComponent({
@@ -126,4 +126,3 @@ export default defineComponent({
     },
 });
 </script>
-  
