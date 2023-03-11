@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="PREHEATING CHROME ROLL">
+    <refreshable-page pageTitle="PREHEATING CHROME ROLL">
         <div class="content">
             <p>
                 Berfungsi untuk memberikan pemanasan awal sebelum dilakukan penarikan pada film<br />
@@ -22,7 +22,7 @@
             </p>
             <img src="@/assets/img/preheating-roll-1.png" />
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -46,13 +46,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

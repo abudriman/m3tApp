@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="ROTARY JOINT">
+    <refreshable-page pageTitle="ROTARY JOINT">
         <div class="content">
             <p>
                 Rotary Joint adalah sambungan antara selang jalur heating oil dengan Roll heating MDO.<br />
@@ -11,7 +11,7 @@
             <img src="@/assets/img/rotary-joint-1.png" />
             <img src="@/assets/img/rotary-joint-2.png" />
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -36,13 +36,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

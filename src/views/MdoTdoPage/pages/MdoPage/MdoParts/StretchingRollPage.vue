@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="STRETCHING ROLL">
+    <refreshable-page pageTitle="STRETCHING ROLL">
         <div class="content">
             <p>
                 Berfungsi untuk menarik film agar film lebih panjang dan lebih tipis sesuai produk yang diinginkan <br>
@@ -24,7 +24,7 @@
             <img src="@/assets/img/stretching-roll-3.png" />
             <img src="@/assets/img/stretching-roll-4.png" />
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -48,13 +48,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'NiprollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

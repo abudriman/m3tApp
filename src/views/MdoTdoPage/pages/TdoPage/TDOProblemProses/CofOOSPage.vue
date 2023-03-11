@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="COF OUT SPEC">
+    <refreshable-page pageTitle="COF OUT SPEC">
         <div class="content">
             <p>
                 COF/Coefficient of Friction adalah indikator untuk menentukan kasar atau licinnya permukaan film. Untuk
@@ -18,7 +18,7 @@
                 Cek TDO Airing System untuk keseluruhan temperature TDO
             </p>
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -42,13 +42,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

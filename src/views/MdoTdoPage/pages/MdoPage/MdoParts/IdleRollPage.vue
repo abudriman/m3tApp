@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="IDLE ROLL">
+    <refreshable-page pageTitle="IDLE ROLL">
         <div class="content">
             <p>
                 Atau biasa disebut guide roll/tension measuring roll berfungsi hanya mengarahkan film (idle) tanpa
@@ -20,7 +20,7 @@
             <img src="@/assets/img/tension-measuring-roll-1.png" />
             <img src="@/assets/img/tension-measuring-roll-2.png" />
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -46,13 +46,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

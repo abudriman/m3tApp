@@ -1,11 +1,14 @@
+import supabase from '@/supabase';
+import { Preferences } from '@capacitor/preferences';
 import { createRouter, createWebHistory } from '@ionic/vue-router';
+import { AuthSession } from '@supabase/supabase-js';
 import { RouteRecordRaw } from 'vue-router';
 import * as views from '../views'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: views.LoginPage
+    component: views.LoginPage,
   },
   {
     path: '/home',
@@ -124,6 +127,81 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach(async (to, from) => {
+  let isLoggedIn = false
+
+  const { data, error } = await supabase.auth.getSession()
+  if (data.session && !error) {
+    isLoggedIn = true
+  } else {
+    const prefAccessToken = await Preferences.get({ key: 'access_token' })
+    const prefRefreshToken = await Preferences.get({ key: 'refresh_token' })
+    if (prefAccessToken.value !== null && prefRefreshToken.value !== null) {
+      console.log('hydrate session from preferences')
+      await supabase.auth.setSession({
+        access_token: prefAccessToken.value,
+        refresh_token: prefRefreshToken.value,
+      })
+      isLoggedIn = true
+    } else {
+      console.log('session & preferences not found')
+    }
+  }
+
+
+  // console.log(from.path, to.path)
+  if (isLoggedIn) {
+    // console.log('logged in')
+    if (to.path === '/') {
+      return '/home'
+    }
+  } else {
+    console.log('session not found')
+    const query = to.query as unknown as AuthSession
+    const hash = to.hash
+    if (hash) {
+      const parsedHash = new URLSearchParams(
+        hash.substring(1) // skip the first char (#)
+      );
+      if (parsedHash.get('access_token') && parsedHash.get('refresh_token')) {
+        await Preferences.set({
+          key: 'access_token',
+          value: parsedHash.get('access_token') ?? '',
+        });
+        await Preferences.set({
+          key: 'refresh_token',
+          value: parsedHash.get('refresh_token') ?? '',
+        });
+        await supabase.auth.setSession({
+          access_token: parsedHash.get('access_token') ?? '',
+          refresh_token: parsedHash.get('refresh_token') ?? '',
+        })
+        console.log('hash available, set preferences & session')
+        return
+      }
+    }
+    if (query?.access_token) {
+      await Preferences.set({
+        key: 'access_token',
+        value: query.access_token,
+      });
+      await Preferences.set({
+        key: 'refresh_token',
+        value: query.refresh_token,
+      });
+      await supabase.auth.setSession({
+        access_token: query.access_token,
+        refresh_token: query.refresh_token,
+      })
+      console.log('query available, set preferences & session')
+    }
+    if (to.path !== '/') {
+      return '/'
+    }
+  }
+
 })
 
 export default router

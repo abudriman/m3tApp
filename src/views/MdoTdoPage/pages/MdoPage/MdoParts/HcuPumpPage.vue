@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="HCU MDO PUMP">
+    <refreshable-page pageTitle="HCU MDO PUMP">
         <div class="content">
             <p>
                 Berfungsi mengalirkan oli panas pada roll mdo<br />
@@ -18,7 +18,7 @@
             <img src="@/assets/img/hcu-pump-3.png" />
             <img src="@/assets/img/hcu-pump-4.png" />
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -43,13 +43,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

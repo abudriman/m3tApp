@@ -125,39 +125,10 @@ export default defineComponent({
     },
     setup() {
         console.log('from TeamPage.vue')
-        const route = useRoute()
         const router = useRouter()
-        const onLogout = async () => {
-            console.log('logging out')
-            const error = await supabase.auth.signOut()
-            console.log(error.error)
-            if (!(error.error)) {
-                router.replace('/')
-            }
-        }
 
-        onMounted(async () => {
-            const query = route.query as unknown as AuthSession
-            if (query?.access_token) {
-                supabase.auth.setSession({
-                    access_token: query.access_token,
-                    refresh_token: query.refresh_token,
-                })
-            } else {
-                const { data, error } = await supabase.auth.getSession()
-                console.log(data)
-                if (data.session && !error) {
-                    return
-                } else {
-                    router.replace('/')
-                }
-            }
-
-        })
 
         return {
-            logOut,
-            onLogout,
             router
         }
 

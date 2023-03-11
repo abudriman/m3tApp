@@ -1,2 +1,2 @@
 export { default as NavButton } from './NavButton.vue'
-export { default as PrivatePage } from './PrivatePage.vue'
+export { default as RefreshablePage } from './RefreshablePage.vue'

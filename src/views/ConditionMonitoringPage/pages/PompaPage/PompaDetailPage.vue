@@ -1,5 +1,5 @@
 <template>
-    <private-page :pageTitle="pompaData ? pompaData.name : ''">
+    <refreshable-page :pageTitle="pompaData ? pompaData.name : ''">
         <template v-slot:end>
             <label for="my-modal">
                 <ion-icon slot="icon-only" :icon="addOutline"></ion-icon>
@@ -34,6 +34,7 @@
                             <th class="text-center bg-blue-500" colspan="2">IMPELER</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                         <tr>
                             <th class="text-center">{{ format(date, 'dd/MM/yyyy', { locale: indonesia }) }}</th>
@@ -46,6 +47,7 @@
                             <th>Horizontal</th>
                             <th class="text-center">Tanggal Penggantian</th>
                             <th class="text-center">Keterangan</th>
+                            <th class="text-center">Oleh</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,48 +64,18 @@
                             <td>{{ data.impeler_h }}</td>
                             <td>{{ data.tanggal_penggantian }}</td>
                             <td>{{ data.keterangan }}</td>
+                            <td>Odading</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <input type="checkbox" id="my-modal" class="modal-toggle" />
-        <div class="modal">
-            <div class="modal-box">
-                <!-- <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-                <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for
-                    free!</p> -->
-                <div class="flex flex-col">
-                    <select v-model="selectedIndex" @change="handleSelect($event)" class="select select-bordered w-full ">
-                        <option value='0' disabled selected>Pilih bagian </option>
-                        <option v-for="part in pompaPartData" :key="part.id" :value="part.id">{{ part.name }}</option>
-                    </select>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Coupling V</span>
-                        </label>
-                        <input v-model.number="monitoringForm.coupling_v" type="number" class="input input-bordered" />
-                    </div>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Motor V</span>
-                        </label>
-                        <input v-model.number="monitoringForm.motor_v" type="number" class="input input-bordered" />
-                    </div>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Motor H</span>
-                        </label>
-                        <input v-model.number="monitoringForm.motor_h" type="number" class="input input-bordered" />
-                    </div>
-                </div>
-                <div class="modal-action flex">
-                    <label for="my-modal" class="btn btn-outline">Cancel</label>
-                    <label for="my-modal" class="btn" @click="handleSave">Save</label>
-                </div>
-            </div>
+        <div class="flex justify-center pt-6" v-if="!monitoringData.length">
+            <p>Tidak ada data</p>
         </div>
-    </private-page>
+        <MonitoringPompaModal :handleSave="handleSave" :handleSelect="handleSelect" :monitoringForm="monitoringForm"
+            :selectedIndex="selectedIndex" :pompaPartData="pompaPartData" />
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -144,8 +116,9 @@ p {
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref, watchEffect, watch } from 'vue';
 import {
-    PrivatePage,
+    RefreshablePage,
 } from '@/components'
+import { MonitoringPompaModal } from '@/components/partials'
 import supabase from '@/supabase';
 import { useRoute, useRouter } from 'vue-router';
 import startOfMonth from 'date-fns/startOfMonth'
@@ -163,9 +136,10 @@ import { Monitoring, PompaPart } from '@/interface'
 export default defineComponent({
     name: 'PompaDetailPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
         IonCard,
-        IonIcon
+        IonIcon,
+        MonitoringPompaModal
     },
     setup() {
         const router = useRouter()
@@ -189,40 +163,12 @@ export default defineComponent({
             coupling_h: undefined,
         }
         const monitoringForm = ref<Partial<Monitoring>>(monitoringFormInit)
-        const yearOption = [
-            {
-                text: '2019',
-                value: '2019'
-            },
-            {
-                text: '2020',
-                value: '2020'
-            },
-            {
-                text: '2021',
-                value: '2021'
-            },
-            {
-                text: '2022',
-                value: '2022'
-            },
-            {
-                text: '2023',
-                value: '2023'
-            },
-            {
-                text: '2024',
-                value: '2024'
-            },
-            {
-                text: '2025',
-                value: '2025'
-            },
-            {
-                text: '2026',
-                value: '2026'
-            },
-        ]
+
+        const yearOption = Array(100).fill(undefined).map((value, index) => ({
+            text: String(2019 + index),
+            value: String(2019 + index)
+        }))
+        // console.log(yearOption[0])
         const monthOption = [
             {
                 text: 'Januari',
@@ -274,10 +220,13 @@ export default defineComponent({
             },
         ]
         const fetchMonitoringData = async () => {
+            // console.log(date.value)
             const { data, error } = await supabase
                 .from('monitoring')
                 .select(`*,
                 master_pompa_parts (
+                    *
+                ), users (
                     *
                 )
                 `)
@@ -341,8 +290,8 @@ export default defineComponent({
             await picker.present()
         }
         const changeDate = (year: string, month: string) => {
-            console.log(new Date(`${month}-01-${year}`))
-            date.value = new Date(`${month}-01-${year}`)
+            // console.log(new Date(`${year}-${month}-01`))
+            date.value = new Date(`${year}-${month}-01`)
         }
         const selectPompaPart = (id: number) => {
             console.log(id)
@@ -371,6 +320,37 @@ export default defineComponent({
         watch(pompaData, () => {
             fetchPompaPartData()
         })
+
+
+        //realtime channel
+        supabase
+            .channel('any')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'monitoring' }, async payload => {
+                console.log('Change received!', payload)
+                const changeIndex = monitoringData.value.findIndex(data => data.id === (payload.old as { id: number }).id)
+                const { data, error } = await supabase
+                    .from('monitoring')
+                    .select(`*,
+                master_pompa_parts (
+                    *
+                )
+                `).limit(1)
+                    .eq('id', (payload.new as { id: number }).id)
+                    .gte('date', format(startOfMonth(date.value), 'yyyy-MM-dd'))
+                    .lte('date', format(endOfMonth(date.value), 'yyyy-MM-dd'))
+                    .order('part_id')
+
+                if (!error && changeIndex > -1) {
+                    monitoringData.value[changeIndex] = data[0]
+                } else if (data) {
+                    monitoringData.value.push(data[0])
+                    monitoringData.value.sort((a, b) => a.master_pompa_parts.id - b.master_pompa_parts.id)
+                }
+                // let temp = monitoringData.value[changeIndex]
+                //  = { ...payload.new as Monitoring, master_pompa_parts: temp.master_pompa_parts }
+            })
+            .subscribe()
+
         return {
             monitoringData,
             pompaData,

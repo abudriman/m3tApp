@@ -1,7 +1,7 @@
 <template>
-    <private-page pageTitle="Pompa">
+    <refreshable-page pageTitle="Pompa">
         <p>this is sink page</p>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -13,7 +13,7 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import {
-    PrivatePage,
+    RefreshablePage,
 } from '@/components'
 import supabase from '@/supabase';
 import { useRouter } from 'vue-router';
@@ -21,7 +21,7 @@ import { useRouter } from 'vue-router';
 export default defineComponent({
     name: 'PompaPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
         const router = useRouter()

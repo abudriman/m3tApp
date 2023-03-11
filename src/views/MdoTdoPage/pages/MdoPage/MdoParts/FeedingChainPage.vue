@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="FEEDING CHAIN">
+    <refreshable-page pageTitle="FEEDING CHAIN">
         <div class="content">
             <img src="@/assets/img/feeding-chain.png" />
             <p>
@@ -7,7 +7,7 @@
                 rantai.
             </p>
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -32,13 +32,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

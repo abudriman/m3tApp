@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="NIPROLL">
+    <refreshable-page pageTitle="NIPROLL">
         <div class="content">
             <p>
                 Berfungsi untuk menahan film pada saat penarikan agar visual film bagus. Terhindar dari skratch &
@@ -22,7 +22,7 @@
             <img src="@/assets/img/niproll-1.png" />
             <img src="@/assets/img/niproll-2.png" />
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -46,13 +46,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'NiprollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

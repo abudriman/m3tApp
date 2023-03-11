@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="ANNEALING CHROME ROLL">
+    <refreshable-page pageTitle="ANNEALING CHROME ROLL">
         <div class="content">
             <p>
                 Berfungsi untuk mendinginkan film dengan temperatur yang lebih rendah<br />
@@ -22,7 +22,7 @@
             </p>
             <img src="@/assets/img/annealing-chrome-roll.png" />
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -46,13 +46,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

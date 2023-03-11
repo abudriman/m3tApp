@@ -90,13 +90,6 @@ export default defineComponent({
     components: { IonPage, IonContent, },
 
     setup() {
-        // const route = useRoute()
-        const router = useRouter()
-        // const hash = route.hash.substring(1,)
-        // console.log('from LoginPage.vue')
-        // if (hash) {
-        //     router.push(`/home?${hash}`)
-        // }
         onBeforeMount(async () => {
             const router = useRouter()
             const prefAccessToken = await Preferences.get({ key: 'access_token' })
@@ -106,8 +99,6 @@ export default defineComponent({
                 router.push('/home')
                 console.log('logged in')
             }
-            console.log(prefAccessToken.value)
-            console.log(prefRefreshToken.value)
             if (prefAccessToken.value !== null && prefRefreshToken.value !== null) {
                 console.log('hydrate session from preferences')
                 await supabase.auth.setSession({

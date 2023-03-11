@@ -1,0 +1,1 @@
+export { default as MonitoringPompaModal } from './MonitoringPompaModal.vue'

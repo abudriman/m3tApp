@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="FILM MENCIUT">
+    <refreshable-page pageTitle="FILM MENCIUT">
         <div class="content">
             <p>
                 Kondensat terjadi ketika udara panas yang mengandung oli dari annealing zone bertemu dengan udara dingin
@@ -20,7 +20,7 @@
 
             </p>
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -44,13 +44,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

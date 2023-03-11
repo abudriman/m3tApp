@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="DRAW GAP">
+    <refreshable-page pageTitle="DRAW GAP">
         <div class="content">
             <p>
                 Adalah sistem untuk menentukan gap penarikan antara roll streching. Digerakan dengan motor,
@@ -13,7 +13,7 @@
             <img src="@/assets/img/draw-gap-2.png" />
             <img src="@/assets/img/draw-gap-3.png" />
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -37,13 +37,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

@@ -91,7 +91,7 @@ section.content {
 <script lang="ts">
 import { defineComponent, onBeforeMount } from 'vue';
 import supabase from '../supabase'
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import {
     IonPage,
     IonContent,
@@ -104,7 +104,6 @@ import {
     IonIcon
 } from '@ionic/vue';
 import { NavButton } from '../components'
-import { AuthSession } from '@supabase/supabase-js';
 import { logOut } from 'ionicons/icons'
 import { Preferences } from '@capacitor/preferences';
 
@@ -128,73 +127,6 @@ export default defineComponent({
                 router.replace('/')
             }
         }
-
-        onBeforeMount(async () => {
-            console.log(
-                'onMounted called'
-            )
-            const route = useRoute()
-            const query = route.query as unknown as AuthSession
-            const hash = route.hash
-            if (hash) {
-                const parsedHash = new URLSearchParams(
-                    hash.substring(1) // skip the first char (#)
-                );
-                if (parsedHash.get('access_token') && parsedHash.get('refresh_token')) {
-                    await Preferences.set({
-                        key: 'access_token',
-                        value: parsedHash.get('access_token') ?? '',
-                    });
-                    await Preferences.set({
-                        key: 'refresh_token',
-                        value: parsedHash.get('refresh_token') ?? '',
-                    });
-                    await supabase.auth.setSession({
-                        access_token: parsedHash.get('access_token') ?? '',
-                        refresh_token: parsedHash.get('refresh_token') ?? '',
-                    })
-                    console.log('hash available, set preferences & session')
-                    return
-                }
-            }
-            if (query?.access_token) {
-                await Preferences.set({
-                    key: 'access_token',
-                    value: query.access_token,
-                });
-                await Preferences.set({
-                    key: 'refresh_token',
-                    value: query.refresh_token,
-                });
-                await supabase.auth.setSession({
-                    access_token: query.access_token,
-                    refresh_token: query.refresh_token,
-                })
-                console.log('query available, set preferences & session')
-            } else {
-                const prefAccessToken = await Preferences.get({ key: 'access_token' })
-                const prefRefreshToken = await Preferences.get({ key: 'refresh_token' })
-                const { data, error } = await supabase.auth.getSession()
-                console.log(data)
-                if (data.session && !error) {
-                    return
-                } else {
-                    console.log(prefAccessToken.value)
-                    console.log(prefRefreshToken.value)
-                    if (prefAccessToken.value !== null && prefRefreshToken.value !== null) {
-                        console.log('hydrate session from preferences')
-                        await supabase.auth.setSession({
-                            access_token: prefAccessToken.value,
-                            refresh_token: prefRefreshToken.value,
-                        })
-                    } else {
-                        console.log('session & preferences not found')
-                        router.replace('/')
-                    }
-                }
-            }
-
-        })
 
         return {
             logOut,

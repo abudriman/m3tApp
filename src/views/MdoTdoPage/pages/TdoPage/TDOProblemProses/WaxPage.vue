@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="WAX">
+    <refreshable-page pageTitle="WAX">
         <div class="content">
             <p>
                 Wax adalah efek samping dari additive tipe film tertentu (PSV) yang muncul akibat pendinginan di air
@@ -10,7 +10,7 @@
             <img src="@/assets/img/wax-1.png" alt="">
             <img src="@/assets/img/wax-2.png" alt="">
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -34,13 +34,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

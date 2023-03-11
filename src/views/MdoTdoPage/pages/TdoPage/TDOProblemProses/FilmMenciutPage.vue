@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="FILM MENCIUT">
+    <refreshable-page pageTitle="FILM MENCIUT">
         <div class="content">
             <p>
                 Keadaan film yang menyusut pada TDO out terjadi akibat thermal shrinkage. Ini dapat terjadi ketika air
@@ -9,7 +9,7 @@
             </p>
             <img src="@/assets/img/film-menciut-1.png" alt="">
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -33,13 +33,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

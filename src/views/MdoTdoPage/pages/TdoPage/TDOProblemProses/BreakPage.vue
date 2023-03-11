@@ -1,5 +1,5 @@
 <template>
-    <private-page pageTitle="FREQUENTLY BREAK TDO">
+    <refreshable-page pageTitle="FREQUENTLY BREAK TDO">
         <div class="content">
             <p>
                 Ada banyak penyebab break yang harus di cek:
@@ -15,7 +15,7 @@
 
             </p>
         </div>
-    </private-page>
+    </refreshable-page>
 </template>
 
 <style scoped>
@@ -39,13 +39,13 @@ outline: 1px solid red;
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {
-    PrivatePage
+    RefreshablePage
 } from '@/components'
 
 export default defineComponent({
     name: 'PreheatingRollPage',
     components: {
-        PrivatePage,
+        RefreshablePage,
     },
     setup() {
 

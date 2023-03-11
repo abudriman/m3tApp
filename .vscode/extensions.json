@@ -2,6 +2,8 @@
     "recommendations": [
         "ionic.ionic",
         "vue.vscode-typescript-vue-plugin",
-        "vue.volar"
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.auto-rename-tag",
+        "hollowtree.vue-snippets"
     ]
 }
