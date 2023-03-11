@@ -1,9 +1,10 @@
 <template>
-    <refreshable-page :pageTitle="pompaData ? pompaData.name : ''">
+    <refreshable-page :pageTitle="pompaData ? pompaData.name : ''"
+        :onRefresh="(e: IonRefresherCustomEvent<RefresherEventDetail>) => { fetchMonitoringData().then(() => e.target.complete()) }">
         <template v-slot:end>
-            <label for="my-modal">
+            <ion-button @click="onOpen">
                 <ion-icon slot="icon-only" :icon="addOutline"></ion-icon>
-            </label>
+            </ion-button>
         </template>
         <div class="filter">
             <div class="filter-item">
@@ -47,7 +48,7 @@
                             <th>Horizontal</th>
                             <th class="text-center">Tanggal Penggantian</th>
                             <th class="text-center">Keterangan</th>
-                            <th class="text-center">Oleh</th>
+                            <th class="text-center">Diperbarui Oleh</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +65,7 @@
                             <td>{{ data.impeler_h }}</td>
                             <td>{{ data.tanggal_penggantian }}</td>
                             <td>{{ data.keterangan }}</td>
-                            <td>Odading</td>
+                            <td>{{ data.updated_by }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -73,7 +74,8 @@
         <div class="flex justify-center pt-6" v-if="!monitoringData.length">
             <p>Tidak ada data</p>
         </div>
-        <MonitoringPompaModal :handleSave="handleSave" :handleSelect="handleSelect" :monitoringForm="monitoringForm"
+        <MonitoringPompaModal :page-title="pompaData ? pompaData.name : ''" :is-open="isOpen" :on-close="onClose"
+            :handleSave="handleSave" :handleSelect="handleSelect" :monitoringForm="monitoringForm"
             :selectedIndex="selectedIndex" :pompaPartData="pompaPartData" />
     </refreshable-page>
 </template>
@@ -128,10 +130,13 @@ import indonesia from 'date-fns/locale/id'
 import {
     IonCard,
     IonIcon,
-    pickerController
+    pickerController,
+    RefresherEventDetail,
+    IonButton
 } from '@ionic/vue';
 import { caretDown, addOutline } from 'ionicons/icons'
 import { Monitoring, PompaPart } from '@/interface'
+import { IonRefresherCustomEvent } from '@ionic/core';
 
 export default defineComponent({
     name: 'PompaDetailPage',
@@ -139,14 +144,19 @@ export default defineComponent({
         RefreshablePage,
         IonCard,
         IonIcon,
-        MonitoringPompaModal
+        MonitoringPompaModal,
+        IonButton
     },
     setup() {
+        const isOpen = ref(false)
+        const onOpen = () => { isOpen.value = true }
+        const onClose = () => { isOpen.value = false }
         const router = useRouter()
         const route = useRoute()
         const { id } = route.params
         const monitoringData = ref<Array<Monitoring>>([])
         const pompaPartData = ref<Array<PompaPart>>()
+        const user: any = ref()
         const selectedIndex = ref<number>(0)
         const pompaData = ref()
         const date = ref(new Date())
@@ -168,7 +178,6 @@ export default defineComponent({
             text: String(2019 + index),
             value: String(2019 + index)
         }))
-        // console.log(yearOption[0])
         const monthOption = [
             {
                 text: 'Januari',
@@ -226,8 +235,6 @@ export default defineComponent({
                 .select(`*,
                 master_pompa_parts (
                     *
-                ), users (
-                    *
                 )
                 `)
                 .eq('pompa_id', id)
@@ -276,11 +283,11 @@ export default defineComponent({
                 ],
                 buttons: [
                     {
-                        text: 'Cancel',
+                        text: 'Batal',
                         role: 'cancel',
                     },
                     {
-                        text: 'Confirm',
+                        text: 'Pilih',
                         handler: (value) => {
                             changeDate(value.tahun.value, value.bulan.value)
                         },
@@ -302,6 +309,7 @@ export default defineComponent({
         }
         const handleSave = () => {
             console.log(monitoringForm.value)
+            onClose()
         }
         onBeforeMount(async () => {
             await Promise.all([
@@ -366,7 +374,11 @@ export default defineComponent({
             selectedIndex,
             handleSelect,
             monitoringForm,
-            handleSave
+            handleSave,
+            fetchMonitoringData,
+            isOpen,
+            onOpen,
+            onClose
         }
 
     },

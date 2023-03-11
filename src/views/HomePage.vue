@@ -3,7 +3,7 @@
         <ion-menu content-id="main-content">
             <ion-header>
                 <ion-toolbar>
-                    <ion-title>Hello</ion-title>
+                    <ion-title class="line-clamp-1">Hello {{ profile?.name }}</ion-title>
                 </ion-toolbar>
             </ion-header>
             <ion-content class="ion-padding">
@@ -89,7 +89,7 @@ section.content {
 </style>
   
 <script lang="ts">
-import { defineComponent, onBeforeMount } from 'vue';
+import { defineComponent, onBeforeMount, ref } from 'vue';
 import supabase from '../supabase'
 import { useRouter } from 'vue-router';
 import {
@@ -106,6 +106,7 @@ import {
 import { NavButton } from '../components'
 import { logOut } from 'ionicons/icons'
 import { Preferences } from '@capacitor/preferences';
+import { getUserProfile } from '@/utils'
 
 export default defineComponent({
     name: 'HomePage',
@@ -117,6 +118,8 @@ export default defineComponent({
     },
     setup() {
         console.log('from HomePage.vue')
+        const user = ref()
+        const profile = ref()
         const router = useRouter()
         const onLogout = async () => {
             console.log('logging out')
@@ -128,10 +131,17 @@ export default defineComponent({
             }
         }
 
+        onBeforeMount(async () => {
+            await getUserProfile()
+            user.value = JSON.parse(await (await Preferences.get({ key: 'user' })).value ?? '{}')
+            profile.value = JSON.parse(await (await Preferences.get({ key: 'profile' })).value ?? '{}')
+        })
+
         return {
             logOut,
             onLogout,
-            router
+            router,
+            profile
         }
 
     },

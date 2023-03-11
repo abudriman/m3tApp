@@ -61,7 +61,7 @@ section.sign-in-button {
 }
 </style>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent } from 'vue';
 import { logoGoogle } from 'ionicons/icons';
 import { Browser } from '@capacitor/browser';
@@ -74,46 +74,14 @@ import { Preferences } from '@capacitor/preferences';
 
 async function signInWithGoogle() {
     const url = `${process.env.VUE_APP_SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${process.env.VUE_APP_REDIRECT_URL}/home`
-    // await Browser.open({
-    //     url: url
-    // });
-    supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-            redirectTo: `${process.env.VUE_APP_REDIRECT_URL}/home`
-        }
-    })
+    await Browser.open({
+        url: url
+    });
+    // supabase.auth.signInWithOAuth({
+    //     provider: 'google',
+    //     options: {
+    //         redirectTo: `${process.env.VUE_APP_REDIRECT_URL}/home`
+    //     }
+    // })
 }
-
-export default defineComponent({
-    name: 'LoginPage',
-    components: { IonPage, IonContent, },
-
-    setup() {
-        onBeforeMount(async () => {
-            const router = useRouter()
-            const prefAccessToken = await Preferences.get({ key: 'access_token' })
-            const prefRefreshToken = await Preferences.get({ key: 'refresh_token' })
-            const { data, error } = await supabase.auth.getSession()
-            if (data.session && !error) {
-                router.push('/home')
-                console.log('logged in')
-            }
-            if (prefAccessToken.value !== null && prefRefreshToken.value !== null) {
-                console.log('hydrate session from preferences')
-                await supabase.auth.setSession({
-                    access_token: prefAccessToken.value,
-                    refresh_token: prefRefreshToken.value,
-                })
-                router.push('/home')
-            }
-            console.log('session & preferences not found')
-        })
-        return {
-            logoGoogle,
-            signInWithGoogle
-        }
-
-    },
-});
 </script>

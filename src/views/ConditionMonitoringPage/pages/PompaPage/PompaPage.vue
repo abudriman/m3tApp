@@ -1,6 +1,6 @@
 <template>
     <refreshable-page pageTitle="Pompa" :onRefresh="onRefresh">
-        <nav-button v-for="pompa in pompas" :key="pompa.id" :title="pompa.name"
+        <nav-button class="!mx-0" v-for="pompa in pompas" :key="pompa.id" :title="pompa.name"
             @click="router.push(`/condition-monitoring/pompa-detail/${pompa.id}`)"></nav-button>
     </refreshable-page>
 </template>

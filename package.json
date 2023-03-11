@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "tailwind" : "npx tailwindcss -o ./src/theme/tailwind-output.css --watch",
+    "tailwind": "npx tailwindcss -o ./src/theme/tailwind-output.css --watch",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
@@ -22,6 +22,7 @@
     "@ionic/vue": "^6.0.0",
     "@ionic/vue-router": "^6.0.0",
     "@supabase/supabase-js": "^2.1.1",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "axios": "^1.2.1",
     "core-js": "^3.6.5",
     "daisyui": "^2.46.1",

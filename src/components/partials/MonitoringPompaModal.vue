@@ -1,11 +1,18 @@
 <template >
-    <input type="checkbox" id="my-modal" class="modal-toggle" />
-    <div class="modal">
-        <div class="modal-box">
-            <!-- <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-            <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for
-                free!</p> -->
-            <div class="flex flex-col">
+    <ion-modal :is-open="isOpen">
+        <ion-header>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-button @click="cancel()">Batal</ion-button>
+                </ion-buttons>
+                <ion-title>{{ pageTitle }}</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button :strong="true" @click="confirm()">Simpan</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+            <div class="flex flex-col pb-[20vh]">
                 <select v-bind:value="selectedIndex" @change="handleSelect($event)" class="select select-bordered w-full ">
                     <option value='0' disabled selected>Pilih bagian </option>
                     <option v-for="part in pompaPartData" :key="part.id" :value="part.id">{{ part.name }}</option>
@@ -53,15 +60,49 @@
                     </label>
                     <input :value="monitoringForm.impeler_h" type="number" class="input input-bordered" />
                 </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Impeler Horizontal</span>
+                    </label>
+                    <input :value="monitoringForm.impeler_h" type="number" class="input input-bordered" />
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Impeler Horizontal</span>
+                    </label>
+                    <input :value="monitoringForm.impeler_h" type="number" class="input input-bordered" />
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Impeler Horizontal</span>
+                    </label>
+                    <input :value="monitoringForm.impeler_h" type="number" class="input input-bordered" />
+                </div>
             </div>
-            <div class="modal-action flex">
-                <label for="my-modal" class="btn btn-outline">Cancel</label>
-                <label for="my-modal" class="btn" @click="handleSave">Save</label>
-            </div>
-        </div>
-    </div>
+        </ion-content>
+    </ion-modal>
+    <input type="checkbox" id="my-modal" class="modal-toggle" />
 </template>
 <script lang="ts" setup>
 import { defineComponent, defineProps } from 'vue';
-defineProps(['selectedIndex', 'handleSelect', 'pompaPartData', 'monitoringForm', 'handleSave'])
+import {
+    IonButtons,
+    IonButton,
+    IonModal,
+    IonHeader,
+    IonContent,
+    IonToolbar,
+    IonTitle,
+    IonItem,
+    IonInput,
+    IonLabel,
+} from '@ionic/vue';
+import { OverlayEventDetail } from '@ionic/core';
+const props = defineProps(['selectedIndex', 'handleSelect', 'pompaPartData', 'monitoringForm', 'handleSave', 'isOpen', 'onClose', 'pageTitle'])
+const cancel = () => {
+    props.onClose()
+}
+const confirm = () => {
+    props.handleSave()
+}
 </script>

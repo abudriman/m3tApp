@@ -12,4 +12,5 @@ export default interface Monitoring {
     impeler_h: number;
     tanggal_penggantian: string;
     keterangan: string;
+    updated_by: string;
 }
