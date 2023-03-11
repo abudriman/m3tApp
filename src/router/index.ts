@@ -20,24 +20,35 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/condition-monitoring',
-    component: views.MonitoringPage,
-  },
-  {
-    path: '/condition-monitoring/pompa',
-    component: views.PompaPage
-  },
-  {
-    path: '/condition-monitoring/pompa-detail/:id',
-    component: views.PompaDetailPage
-  },
-  {
-    path: '/condition-monitoring/heat-exchanger',
-    component: views.HeatExchangerPage
-  },
-  {
-    path: '/condition-monitoring/oli-rantai-tdo',
-    component: views.OliTdoPage
-  },
+    component: views.MonitoringParent,
+    children: [
+      {
+        path: '',
+        component: views.MonitoringPage
+      },
+      {
+        path: 'pompa',
+        component: views.PompaPage
+      },
+      {
+        path: 'pompa-detail/:id',
+        component: views.PompaDetailPage
+      },
+      {
+        path: 'heat-exchanger',
+        component: views.HeatExchangerPage
+      },
+      {
+        path: 'oli-rantai-tdo',
+        component: views.OliTdoPage
+      },
+      {
+        path: 'oil-detail/:id',
+        component: views.PompaDetailPage,
+        children: []
+      },
+    ]
+  }, //TODO: jadiin children route semua ya kawand biar enak dibaca
   {
     path: '/history-maintenance',
     component: views.HistoryMaintenancePage
