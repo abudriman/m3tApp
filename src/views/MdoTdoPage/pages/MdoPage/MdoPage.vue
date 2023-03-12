@@ -25,18 +25,18 @@
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button @click="router.push('/mdo/niproll')">NIP ROLL</button>
-                                    <button @click="router.push('/mdo/draw-gap')">DRAW GAP</button>
-                                    <button @click="router.push('/mdo/hcu-pump')">HCU PUMP</button>
-                                    <button @click="router.push('/mdo/feeding-chain')">FEEDING CHAIN</button>
-                                    <button @click="router.push('/mdo/rotary-joint')">ROTARY JOINT</button>
-                                    <button @click="router.push('/mdo/preheating-chrome-roll')">PREHEATING CHROME
-                                        ROLL</button>
-                                    <button @click="router.push('/mdo/preheating-teflon-roll')">PREHEATING TEFLON
-                                        ROLL</button>
-                                    <button @click="router.push('/mdo/stretching-roll')">STRECHING ROLL</button>
-                                    <button @click="router.push('/mdo/annealing-roll')">ANNEALING ROLL</button>
-                                    <button @click="router.push('/mdo/idle-roll')">IDLE ROLL</button>
+                                    <accord-nav-item text="NIP ROLL" @click="router.push('/mdo/niproll')" />
+                                    <accord-nav-item text="DRAW GAP" @click="router.push('/mdo/draw-gap')" />
+                                    <accord-nav-item text="HCU PUMP" @click="router.push('/mdo/hcu-pump')" />
+                                    <accord-nav-item text="FEEDING CHAIN" @click="router.push('/mdo/feeding-chain')" />
+                                    <accord-nav-item text="ROTARY JOINT" @click="router.push('/mdo/rotary-joint')" />
+                                    <accord-nav-item text="PREHEATING CHROME ROLL"
+                                        @click="router.push('/mdo/preheating-chrome-roll')" />
+                                    <accord-nav-item text="PREHEATING TEFLON ROLL"
+                                        @click="router.push('/mdo/preheating-teflon-roll')" />
+                                    <accord-nav-item text="STRETCHING ROLL" @click="router.push('/mdo/stretching-roll')" />
+                                    <accord-nav-item text="ANNEALING ROLL" @click="router.push('/mdo/annealing-roll')" />
+                                    <accord-nav-item text="IDLE ROLL" @click="router.push('/mdo/idle-roll')" />
                                 </div>
                             </div>
                         </ion-accordion>
@@ -48,20 +48,15 @@
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button>CARDANT SHAFT
-                                        KASAR</button>
-                                    <button>DRAW GAP MACET</button>
-                                    <button>ROLL UNBALANCE</button>
-                                    <button>BEARING ROLL
-                                        KASAR</button>
-                                    <button>RANTAI FEEDING
-                                        PUTUS</button>
-                                    <button>POMPA
-                                        REMBER/KASAR</button>
-                                    <button>TEMPERATUR TIDAK
-                                        TERCAPAI</button>
-                                    <button>ROTARY JOINT
-                                        REMBES/GOYANG</button>
+                                    <accord-nav-item text="CARDANT SHAFT KASAR" @click="router.push('/#')" />
+                                    <accord-nav-item text="DRAW GAP MACET" @click="router.push('/#')" />
+                                    <accord-nav-item text="ROLL UNBALANCE" @click="router.push('/#')" />
+                                    <accord-nav-item text="BEARING ROLL KASAR" @click="router.push('/#')" />
+                                    <accord-nav-item text="RANTAI FEEDING PUTUS" @click="router.push('/#')" />
+                                    <accord-nav-item text="POMPA REMBER/KASAR" @click="router.push('/#')" />
+                                    <accord-nav-item text="TEMPERATUR TIDAK TERCAPAI" @click="router.push('/#')" />
+                                    <accord-nav-item text="ROTARY JOINT REMBES/GOYANG" @click="router.push('/#')" />
+
                                 </div>
                             </div>
                         </ion-accordion>
@@ -73,18 +68,15 @@
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button>FILM KOTOR</button>
-                                    <button>PROBLEM
-                                        TEMPERATUR</button>
-                                    <button>FLEK PADA FILM</button>
-                                    <button>TALI FEEDING
-                                        PUTUS</button>
-                                    <button>SPOT PADA FILM</button>
-                                    <button>SKRATCH PADA
-                                        FILM</button>
-                                    <button>BREAK MDO</button>
-                                    <button>FILM BERGEL
-                                        OMBANG</button>
+                                    <accord-nav-item text="FILM KOTOR" @click="router.push('/#')" />
+                                    <accord-nav-item text="PROBLEM TEMPERATUR" @click="router.push('/#')" />
+                                    <accord-nav-item text="FLEK PADA FILM" @click="router.push('/#')" />
+                                    <accord-nav-item text="TALI FEEDING PUTUS" @click="router.push('/#')" />
+                                    <accord-nav-item text="SPOT PADA FILM" @click="router.push('/#')" />
+                                    <accord-nav-item text="SKRATCH PADA FILM" @click="router.push('/#')" />
+                                    <accord-nav-item text="BREAK MDO" @click="router.push('/#')" />
+                                    <accord-nav-item text="FILM BERGEL OMBANG" @click="router.push('/#')" />
+
                                 </div>
                             </div>
                         </ion-accordion>
@@ -131,9 +123,13 @@ section.content>* {
     padding: 20px;
     margin: 3px 0px;
 }
+
+.accord-item>*:not(:last-child) {
+    border-bottom: 1px solid #616161;
+}
 </style>
   
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent, onMounted } from 'vue';
 import supabase from '@/supabase'
 import { useRoute, useRouter } from 'vue-router';
@@ -150,63 +146,8 @@ import {
     IonItem,
     IonLabel,
 } from '@ionic/vue';
-import { AuthSession } from '@supabase/supabase-js';
-import { logOut } from 'ionicons/icons'
-
-export default defineComponent({
-    name: 'MdoPage',
-    components: {
-        IonPage,
-        IonContent,
-        IonHeader,
-        IonToolbar,
-        IonTitle,
-        IonButtons,
-        IonBackButton,
-        IonAccordionGroup,
-        IonAccordion,
-        IonItem,
-        IonLabel,
-    },
-    setup() {
-        console.log('from MdoTdoPage.vue')
-        const route = useRoute()
-        const router = useRouter()
-        const onLogout = async () => {
-            console.log('logging out')
-            const error = await supabase.auth.signOut()
-            console.log(error.error)
-            if (!(error.error)) {
-                router.replace('/')
-            }
-        }
-
-        onMounted(async () => {
-            const query = route.query as unknown as AuthSession
-            if (query?.access_token) {
-                supabase.auth.setSession({
-                    access_token: query.access_token,
-                    refresh_token: query.refresh_token,
-                })
-            } else {
-                const { data, error } = await supabase.auth.getSession()
-                console.log(data)
-                if (data.session && !error) {
-                    return
-                } else {
-                    router.replace('/')
-                }
-            }
-
-        })
-
-        return {
-            logOut,
-            onLogout,
-            router
-        }
-
-    },
-});
+import { AccordNavItem } from '@/components';
+const route = useRoute()
+const router = useRouter()
 </script>
   

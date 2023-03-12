@@ -1,0 +1,1 @@
+export { default as TdoOvenSystem } from './TdoOvenSystem.vue'

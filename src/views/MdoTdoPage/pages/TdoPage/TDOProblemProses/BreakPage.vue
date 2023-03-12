@@ -3,7 +3,7 @@
         <div class="content">
             <p>
                 Ada banyak penyebab break yang harus di cek:
-            <ul>
+            <ul class="list-disc list-inside">
                 <li>Penggantian Material<br />Cek history pemakaian material</li>
                 <li>Air terbawa dari water removal<br />Cek kondisi film setelah water removal</li>
                 <li>Material di Silo basah<br />Cek sampel material pada silo</li>

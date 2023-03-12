@@ -1,7 +1,10 @@
 <template>
     <refreshable-page pageTitle="Oli Rantai TDO" :onRefresh="onRefresh">
-        <nav-button class="!mx-0" v-for="oil in oils" :key="oil.id" :title="oil.name"
-            @click="router.push(`/condition-monitoring/oil-detail/${oil.id}`)"></nav-button>
+        <div v-if="oils.length === 0" class="w-full h-full flex flex-col space-y-4">
+            <nav-button isLoading v-for="anjay, index in Array(10).fill('')" :key="index" />
+        </div>
+        <nav-button v-else class="!mx-0" v-for="oil in oils" :key="oil.id" :title="oil.name"
+            @click="router.push(`/condition-monitoring/oil-rantai?id=${oil.id}&type=${oil.type}&name=${oil.name}`)"></nav-button>
     </refreshable-page>
 </template>
 
@@ -31,24 +34,16 @@ section.content {
 import { onBeforeMount, ref } from 'vue';
 import supabase from '@/supabase'
 import { useRouter } from 'vue-router';
-import {
-    IonPage,
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
-    IonBackButton
-} from '@ionic/vue';
 import { logOut } from 'ionicons/icons'
 import { NavButton } from '@/components';
 import { IonRefresherCustomEvent } from '@ionic/core';
 import { IonRefresherContent } from '@ionic/core/components';
 import { RefreshablePage } from '@/components';
+import { IChainLubeTDO } from '@/interface';
 
 console.log('from TeamPage.vue')
 const router = useRouter()
-const oils = ref()
+const oils = ref<Array<IChainLubeTDO>>([])
 const fetchData = async () => {
     const { data, error } = await supabase
         .from('chain_lube_tdo')

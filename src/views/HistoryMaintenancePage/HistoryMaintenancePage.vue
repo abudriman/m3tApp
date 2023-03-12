@@ -17,7 +17,7 @@
                     <nav-button title="PENGGANTIAN ROLL" />
                     <nav-button title="PENGGANTIAN ROTARY JOINT" />
                     <nav-button title="PENGGANTIAN HEAT EXCHANGER" />
-                    <nav-button title="PROBLEM & NPT" />
+                    <nav-button @click="router.push('/history-maintenance/problem-npt')" title="PROBLEM & NPT" />
                 </section>
             </div>
         </ion-content>
@@ -73,7 +73,7 @@ section.content {
   
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
-import supabase from '../supabase'
+import supabase from '@/supabase'
 import { useRoute, useRouter } from 'vue-router';
 import {
     IonPage,

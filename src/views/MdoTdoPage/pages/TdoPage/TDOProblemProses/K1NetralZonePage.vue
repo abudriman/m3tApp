@@ -1,5 +1,5 @@
 <template>
-    <refreshable-page pageTitle="FILM MENCIUT">
+    <refreshable-page pageTitle="K1 Netral Zone">
         <div class="content">
             <p>
                 Kondensat terjadi ketika udara panas yang mengandung oli dari annealing zone bertemu dengan udara dingin
@@ -8,7 +8,7 @@
             <p>
                 Action:
 
-            <ul>
+            <ul class="list-disc list-inside">
                 <li>Lakukan cleaning secara optimal di area netral zone dengan menggunakan dry ice</li>
                 <li>Pastikan exhaust blower bekerja dengan baik</li>
                 <li>Pastikan tidak ada masalah pada ducting exhaust, cek rembes pada sambungan ducting dan cek flow</li>

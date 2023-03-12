@@ -25,19 +25,11 @@
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button>HANDWHEEL SPINDLE</button>
-                                    <button>COOLING TRACK</button>
-                                    <button>AIRING SYSTEM</button>
-                                    <button>AIR SHOWER</button>
-                                    <button>EDGE GUIDE</button>
-                                    <button>LUBRICATION</button>
-                                    <button>TRACK SYSTEM</button>
-                                    <button>HEAT EXCHANGER</button>
+                                    <accord-nav-item text="Oven System" @click="router.push('/tdo-parts/oven-system')" />
+                                    <accord-nav-item text="Track System" @click="router.push('/')" />
                                 </div>
                             </div>
                         </ion-accordion>
-
-
                     </ion-accordion-group>
                     <ion-accordion-group><ion-accordion value="first">
                             <ion-item slot="header" color="light">
@@ -45,14 +37,15 @@
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button>DRAT CHAIN LUBRICATION AUS</button>
-                                    <button>SELANG COOLING TRACK BOCOR</button>
-                                    <button>FILM LEPAS CLIP</button>
-                                    <button>CHAIN TENSION MATI</button>
-                                    <button>TEMPERATUR GEARBOX TINGGI</button>
-                                    <button>TORSI TINGGI</button>
-                                    <button>JALUR LUBRIKASI BOCOR/MAMPET</button>
-                                    <button>FLOW AIRING KURANG</button>
+                                    <accord-nav-item text="DRAT CHAIN LUBRICATION AUS" @click="router.push('/#')" />
+                                    <accord-nav-item text="SELANG COOLING TRACK BOCOR" @click="router.push('/#')" />
+                                    <accord-nav-item text="FILM LEPAS CLIP" @click="router.push('/#')" />
+                                    <accord-nav-item text="CHAIN TENSION MATI" @click="router.push('/#')" />
+                                    <accord-nav-item text="TEMPERATUR GEARBOX TINGGI" @click="router.push('/#')" />
+                                    <accord-nav-item text="TORSI TINGGI" @click="router.push('/#')" />
+                                    <accord-nav-item text="JALUR LUBRIKASI BOCOR/MAMPET" @click="router.push('/#')" />
+                                    <accord-nav-item text="FLOW AIRING KURANG" @click="router.push('/#')" />
+
                                 </div>
                             </div>
                         </ion-accordion></ion-accordion-group>
@@ -62,15 +55,19 @@
                             </ion-item>
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
-                                    <button @click="router.push('/tdo-problem/cof-out-spec')">COF OUT SPEC</button>
-                                    <button @click="router.push('/tdo-problem/break')">BREAK</button>
-                                    <button @click="router.push('/tdo-problem/film-menciut')">FILM MENCIUT</button>
-                                    <button @click="router.push('/tdo-problem/wax')">WAX</button>
-                                    <button>KORUGASI</button>
-                                    <button @click="router.push('/tdo-problem/k1-netral-zone')">K1 NETRAL ZONE</button>
-                                    <button>GARIS PADA FILM</button>
-                                    <button>SPOT OVAL</button>
-                                    <button>FLATNESS</button>
+                                    <accord-nav-item text="COF OUT SPEC"
+                                        @click="router.push('/tdo-problem/cof-out-spec')" />
+                                    <accord-nav-item text="BREAK" @click="router.push('/tdo-problem/break')" />
+                                    <accord-nav-item text="FILM MENCIUT"
+                                        @click="router.push('/tdo-problem/film-menciut')" />
+                                    <accord-nav-item text="WAX" @click="router.push('/tdo-problem/wax')" />
+                                    <accord-nav-item text="K1 NETRAL ZONE"
+                                        @click="router.push('/tdo-problem/k1-netral-zone')" />
+                                    <accord-nav-item text="GARIS PADA FILM"
+                                        @click="router.push('/tdo-problem/garid-pada-film')" />
+                                    <accord-nav-item text="SPOT OVAL" @click="router.push('/tdo-problem/spot-oval')" />
+
+                                    <accord-nav-item text="FLATNESS" @click="router.push('/tdo-problem/flatness')" />
                                 </div>
                             </div>
                         </ion-accordion></ion-accordion-group>
@@ -113,15 +110,12 @@ section.content>* {
     flex-direction: column;
 }
 
-.accord-item>button {
-    padding: 20px;
-    margin: 3px 0px;
+.accord-item>*:not(:last-child) {
+    border-bottom: 1px solid #616161;
 }
 </style>
   
-<script lang="ts">
-import { defineComponent, onMounted } from 'vue';
-import supabase from '@/supabase'
+<script lang="ts" setup>
 import { useRoute, useRouter } from 'vue-router';
 import {
     IonPage,
@@ -136,63 +130,10 @@ import {
     IonItem,
     IonLabel,
 } from '@ionic/vue';
-import { AuthSession } from '@supabase/supabase-js';
-import { logOut } from 'ionicons/icons'
+import { AccordNavItem } from '@/components';
 
-export default defineComponent({
-    name: 'TdoPage',
-    components: {
-        IonPage,
-        IonContent,
-        IonHeader,
-        IonToolbar,
-        IonTitle,
-        IonButtons,
-        IonBackButton,
-        IonAccordionGroup,
-        IonAccordion,
-        IonItem,
-        IonLabel,
-    },
-    setup() {
-        console.log('from MdoTdoPage.vue')
-        const route = useRoute()
-        const router = useRouter()
-        const onLogout = async () => {
-            console.log('logging out')
-            const error = await supabase.auth.signOut()
-            console.log(error.error)
-            if (!(error.error)) {
-                router.replace('/')
-            }
-        }
-
-        onMounted(async () => {
-            const query = route.query as unknown as AuthSession
-            if (query?.access_token) {
-                supabase.auth.setSession({
-                    access_token: query.access_token,
-                    refresh_token: query.refresh_token,
-                })
-            } else {
-                const { data, error } = await supabase.auth.getSession()
-                console.log(data)
-                if (data.session && !error) {
-                    return
-                } else {
-                    router.replace('/')
-                }
-            }
-
-        })
-
-        return {
-            logOut,
-            onLogout,
-            router
-        }
-
-    },
-});
+console.log('from MdoTdoPage.vue')
+const route = useRoute()
+const router = useRouter()
 </script>
   

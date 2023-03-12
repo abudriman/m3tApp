@@ -38,6 +38,7 @@
                         title="HISTORY MAINTENANCE" />
                     <nav-button @click="router.push('/workplan')" class="navigation" title="WORKPLAN" />
                     <nav-button @click="router.push('/capex')" class="navigation" title="CAPEX" />
+                    <nav-button @click="router.push('/langkah-kerja')" class="navigation" title="LANGKAH KERJA" />
                     <nav-button @click="router.push('/kamus-mdo-tdo')" class="navigation" title="KAMUS MDO TDO" />
                 </section>
             </div>

@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { AuthSession } from '@supabase/supabase-js';
 import { RouteRecordRaw } from 'vue-router';
 import * as views from '../views'
+import TDOPartsRoute from './TdoPart.router'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,46 +21,49 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/condition-monitoring',
-    component: views.MonitoringParent,
-    children: [
-      {
-        path: '',
-        component: views.MonitoringPage
-      },
-      {
-        path: 'pompa',
-        component: views.PompaPage
-      },
-      {
-        path: 'pompa-detail/:id',
-        component: views.PompaDetailPage
-      },
-      {
-        path: 'heat-exchanger',
-        component: views.HeatExchangerPage
-      },
-      {
-        path: 'oli-rantai-tdo',
-        component: views.OliTdoPage
-      },
-      {
-        path: 'oil-detail/:id',
-        component: views.PompaDetailPage,
-        children: []
-      },
-    ]
-  }, //TODO: jadiin children route semua ya kawand biar enak dibaca
+    component: views.MonitoringPage,
+  }, //TODO: split router
+  {
+    path: '/condition-monitoring/pompa',
+    component: views.PompaPage
+  },
+  {
+    path: '/condition-monitoring/pompa-detail/:id',
+    component: views.PompaDetailPage
+  },
+  {
+    path: '/condition-monitoring/heat-exchanger',
+    component: views.HeatExchangerPage
+  },
+  {
+    path: '/condition-monitoring/oli-rantai-tdo',
+    component: views.OliTdoPage
+  },
+  {
+    path: '/condition-monitoring/oil-rantai',
+    component: views.OliTdoDetailPage,
+    children: []
+  },
   {
     path: '/history-maintenance',
-    component: views.HistoryMaintenancePage
+    component: views.HistoryMaintenancePage,
+  },
+  {
+    path: '/history-maintenance/problem-npt',
+    component: views.ProblemNptPage
   },
   {
     path: '/workplan',
-    component: views.WorkplanPage
+    component: views.WorkplanPage,
   },
+  { path: '/workplan/:year', component: views.WorkplanImagePage },
   {
     path: '/capex',
     component: views.CapexPage
+  },
+  {
+    path: '/langkah-kerja',
+    component: views.LangkahkerjaPage,
   },
   {
     path: '/kamus-mdo-tdo',
@@ -126,6 +130,18 @@ const routes: Array<RouteRecordRaw> = [
     component: views.K1NetralZonePage
   },
   {
+    path: '/tdo-problem/garid-pada-film',
+    component: views.GarisPadaFilmPage
+  },
+  {
+    path: '/tdo-problem/spot-oval',
+    component: views.SpotOvalPage
+  },
+  {
+    path: '/tdo-problem/flatness',
+    component: views.FlatnessPage
+  },
+  {
     path: '/tdo-problem/cof-out-spec',
     component: views.CofOOSPage
   },
@@ -133,7 +149,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/kamus-mdo-tdo/tdo',
     component: views.TdoPage
   },
+  ...TDOPartsRoute
 ]
+
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

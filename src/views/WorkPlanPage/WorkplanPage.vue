@@ -13,9 +13,9 @@
         <ion-content id="main-content">
             <div class="main-grid">
                 <section class="content">
-                    <nav-button title="WORKPLAN 2021" />
-                    <nav-button title="WORKPLAN 2022" />
-                    <nav-button title="WORKPLAN 2023" />
+                    <nav-button @click="router.push('/workplan/2021')" title="WORKPLAN 2021" />
+                    <nav-button @click="router.push('/workplan/2022')" title="WORKPLAN 2022" />
+                    <nav-button @click="router.push('/workplan/2023')" title="WORKPLAN 2023" />
                 </section>
             </div>
         </ion-content>
@@ -71,7 +71,7 @@ section.content {
   
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
-import supabase from '../supabase'
+// import supabase from '@/supabase'
 import { useRoute, useRouter } from 'vue-router';
 import {
     IonPage,
@@ -100,39 +100,10 @@ export default defineComponent({
     },
     setup() {
         console.log('from TeamPage.vue')
-        const route = useRoute()
         const router = useRouter()
-        const onLogout = async () => {
-            console.log('logging out')
-            const error = await supabase.auth.signOut()
-            console.log(error.error)
-            if (!(error.error)) {
-                router.replace('/')
-            }
-        }
-
-        onMounted(async () => {
-            const query = route.query as unknown as AuthSession
-            if (query?.access_token) {
-                supabase.auth.setSession({
-                    access_token: query.access_token,
-                    refresh_token: query.refresh_token,
-                })
-            } else {
-                const { data, error } = await supabase.auth.getSession()
-                console.log(data)
-                if (data.session && !error) {
-                    return
-                } else {
-                    router.replace('/')
-                }
-            }
-
-        })
 
         return {
             logOut,
-            onLogout,
             router
         }
 
