@@ -1,7 +1,12 @@
 <template>
     <refreshable-page pageTitle="Pompa" :onRefresh="onRefresh">
-        <nav-button class="!mx-0" v-for="pompa in pompas" :key="pompa.id" :title="pompa.name"
-            @click="router.push(`/condition-monitoring/pompa-detail/${pompa.id}`)"></nav-button>
+        <div v-if="pompas.length === 0" class="w-full h-full flex flex-col space-y-4">
+            <nav-button isLoading v-for="anjay, index in Array(10).fill('')" :key="index" />
+        </div>
+        <div v-else class="w-full h-full flex flex-col">
+            <nav-button class="!mx-0" v-for="pompa in pompas" :key="pompa.id" :title="pompa.name"
+                @click="router.push(`/condition-monitoring/pompa-detail/${pompa.id}`)"></nav-button>
+        </div>
     </refreshable-page>
 </template>
 
@@ -30,7 +35,7 @@ export default defineComponent({
     },
     setup() {
         const router = useRouter()
-        const pompas = ref()
+        const pompas = ref<Array<{ id: number, name: string }>>([])
         const fetchData = async () => {
             const { data, error } = await supabase
                 .from('master_pompa')

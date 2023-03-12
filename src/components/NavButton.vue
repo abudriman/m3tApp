@@ -1,5 +1,8 @@
 <template >
-    <button class="navigation">{{ title }}</button>
+    <div v-if="isLoading" class="h-[80px] rounded-md">
+        <ion-skeleton-text :animated="true"></ion-skeleton-text>
+    </div>
+    <button v-else class="navigation">{{ title }}</button>
 </template>
 <style scoped>
 .navigation {
@@ -12,11 +15,19 @@
 </style>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { IonSkeletonText } from '@ionic/vue';
 
 export default defineComponent({
     name: 'NavButton',
+    components: {
+        IonSkeletonText
+    },
     props: {
-        title: String
+        title: String,
+        isLoading: {
+            type: Boolean,
+            default: false
+        }
     },
     setup() {
 

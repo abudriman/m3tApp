@@ -74,14 +74,14 @@ import { Preferences } from '@capacitor/preferences';
 
 async function signInWithGoogle() {
     const url = `${process.env.VUE_APP_SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${process.env.VUE_APP_REDIRECT_URL}/home`
-    await Browser.open({
-        url: url
-    });
-    // supabase.auth.signInWithOAuth({
-    //     provider: 'google',
-    //     options: {
-    //         redirectTo: `${process.env.VUE_APP_REDIRECT_URL}/home`
-    //     }
-    // })
+    // await Browser.open({
+    //     url: url
+    // });
+    supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: `${process.env.VUE_APP_REDIRECT_URL}/home`
+        }
+    })
 }
 </script>

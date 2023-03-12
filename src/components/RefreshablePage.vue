@@ -47,7 +47,7 @@ section.content {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    margin: 10px 15px;
+    margin: 0px 15px;
     text-align: left;
     overflow-x: hidden;
     max-width: 100%;
