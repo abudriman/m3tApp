@@ -192,7 +192,7 @@ const monitoringFormInit = {
     pompa_id: id,
     part_id: undefined,
 }
-const monitoringForm = ref<Partial<Monitoring> & Record<string, unknown>>(monitoringFormInit)
+const monitoringForm = ref<Partial<Monitoring> & Record<string, unknown>>({ ...monitoringFormInit })
 
 const yearOption = Array(100).fill(undefined).map((value, index) => ({
     text: String(2019 + index),
@@ -392,7 +392,7 @@ watchEffect(async () => {
 })
 watch(selectedIndex, () => {
     let formData = monitoringData.value.find(data => data.master_pompa_parts.id === selectedIndex.value)
-    monitoringForm.value = formData ? { ...formData } : monitoringFormInit
+    monitoringForm.value = formData ? { ...formData } : { ...monitoringFormInit }
 
 })
 watch(pompaData, () => {

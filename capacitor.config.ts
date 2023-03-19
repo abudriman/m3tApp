@@ -2,9 +2,9 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'top.m3t.abud',
-  appName: 'M3t App',
+  appName: 'MDO TDO',
   webDir: 'dist',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
 };
 
 export default config;

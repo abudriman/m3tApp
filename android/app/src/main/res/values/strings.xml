@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">M3t App</string>
-    <string name="title_activity_main">M3T App</string>
+    <string name="app_name">MDO TDO</string>
+    <string name="title_activity_main">MDO TDO</string>
     <string name="package_name">top.m3t.abud</string>
     <string name="custom_url_scheme">top.m3t.abud</string>
 </resources>

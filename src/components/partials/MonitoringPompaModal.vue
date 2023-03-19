@@ -122,4 +122,9 @@ const confirm = () => {
         isSubmitting.value = false
     })
 }
+
+document.addEventListener('ionBackButton', () => {
+    cancel()
+})
+
 </script>
