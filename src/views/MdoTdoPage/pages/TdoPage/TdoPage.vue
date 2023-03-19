@@ -26,7 +26,7 @@
                             <div class="ion-padding" slot="content">
                                 <div class="accord-item">
                                     <accord-nav-item text="Oven System" @click="router.push('/tdo-parts/oven-system')" />
-                                    <accord-nav-item text="Track System" @click="router.push('/')" />
+                                    <accord-nav-item text="Track System" @click="router.push('/tdo-parts/track-system')" />
                                 </div>
                             </div>
                         </ion-accordion>
