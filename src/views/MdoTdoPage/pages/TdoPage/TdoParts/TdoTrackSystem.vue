@@ -161,6 +161,7 @@
 import {
     RefreshablePage,
 } from '@/components'
+import { IonLabel, IonItem, IonAccordion, IonAccordionGroup } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 
 

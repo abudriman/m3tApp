@@ -27,6 +27,7 @@
     "core-js": "^3.6.5",
     "daisyui": "^2.46.1",
     "date-fns": "^2.29.3",
+    "fastest-validator": "^1.16.0",
     "ionicons": "^6.0.3",
     "vue": "^3.2.21",
     "vue-router": "^4.0.12"

@@ -6,7 +6,18 @@
                 <ion-icon slot="icon-only" :icon="addOutline"></ion-icon>
             </ion-button>
         </template>
+
         <div class="filter">
+            <div v-show="pompaData ? pompaData.type_id === 2 : false"
+                class="filter-item relative overflow-y-hidden overflow-x-hidden">
+                <button className="btn" @click="showBoosterInfo = !showBoosterInfo">
+                    {{ showBoosterInfo ? 'Sembunyikan' : 'Lihat info Pompa' }}</button>
+                <div
+                    :class="showBoosterInfo ? 'transition-all flex flex-col items-center py-4 bottom-0 opacity-100' : 'absolute bottom-[100%] opacity-0'">
+                    <img src="@/assets/img/booster-1.jpg" alt="pompa-booster-1">
+                    <img src="@/assets/img/booster-2.jpg" alt="pompa-booster-2">
+                </div>
+            </div>
             <div class="filter-item">
                 <p>Pompa</p>
                 <ion-card class="ion-no-margin p-2">
@@ -22,6 +33,10 @@
                     </div>
                 </ion-card>
             </div>
+            <!-- <div vshow class="filter-item">
+                <p>Informasi</p>
+                
+            </div> -->
         </div>
         <div class="max-w-full mt-4">
             <div v-if="isLoading" class="py-4 flex justify-center"> <ion-spinner></ion-spinner></div>
@@ -76,8 +91,8 @@
             </div>
         </div>
         <MonitoringPompaModal :page-title="pompaData ? pompaData.name : ''" :is-open="isOpen" :on-close="onClose"
-            :handleSave="handleSave" :handleSelect="handleSelect" :monitoringForm="monitoringForm"
-            :selectedIndex="selectedIndex" :pompaPartData="pompaPartData" />
+            :handle-save="handleSave" :handle-select="handleSelect" :monitoring-form="monitoringForm"
+            :selected-index="selectedIndex" :pompa-part-data="pompaPartData" :handle-input="handleInput" />
     </refreshable-page>
 </template>
 
@@ -134,15 +149,22 @@ import {
     pickerController,
     RefresherEventDetail,
     IonButton,
-    IonSpinner
+    IonSpinner,
+    toastController,
+    IonAccordion,
+    IonAccordionGroup,
+    IonItem,
+    IonLabel,
 } from '@ionic/vue';
 import { caretDown, addOutline } from 'ionicons/icons'
 import { Monitoring, PompaPart } from '@/interface'
 import { IonRefresherCustomEvent } from '@ionic/core';
+import { SubmitMonitoringData } from '@/schema'
+import { validate } from '@/utils'
 
 
 const isOpen = ref(false)
-const onOpen = () => { isOpen.value = true }
+const onOpen = () => { isOpen.value = true; selectedIndex.value = 0 }
 const onClose = () => { isOpen.value = false }
 const router = useRouter()
 const route = useRoute()
@@ -153,20 +175,24 @@ const user: any = ref()
 const selectedIndex = ref<number>(0)
 const isLoading = ref<boolean>(true)
 const pompaData = ref()
+const showBoosterInfo = ref(false)
 const date = ref(new Date())
 const monitoringFormInit = {
-    coupling_v: undefined,
     id: undefined,
-    impeler_h: undefined, impeler_v: undefined,
-    keterangan: undefined,
+    keterangan: '',
     master_pompa_parts: undefined,
-    motor_a: undefined,
-    motor_h: undefined,
-    motor_v: undefined,
-    tanggal_penggantian: undefined,
-    coupling_h: undefined,
+    motor_v: 0,
+    motor_h: 0,
+    motor_a: 0,
+    coupling_v: 0,
+    coupling_h: 0,
+    impeler_v: 0,
+    impeler_h: 0,
+    tanggal_penggantian: format(new Date(), 'yyyy-MM-dd'),
+    pompa_id: id,
+    part_id: undefined,
 }
-const monitoringForm = ref<Partial<Monitoring>>(monitoringFormInit)
+const monitoringForm = ref<Partial<Monitoring> & Record<string, unknown>>(monitoringFormInit)
 
 const yearOption = Array(100).fill(undefined).map((value, index) => ({
     text: String(2019 + index),
@@ -302,9 +328,58 @@ const selectPompaPart = (id: number) => {
 const handleSelect = (event: Event) => {
     selectedIndex.value = Number((event.target as HTMLInputElement).value)
 }
-const handleSave = () => {
-    console.log(monitoringForm.value)
-    onClose()
+const handleInput = (key: string, value: unknown) => {
+    monitoringForm.value[key] = value
+}
+const handleSave = async () => {
+    let { data: dataUser, error: userError } = await supabase.auth.getUser()
+    let data = {
+        ...monitoringForm.value,
+        date: format(date.value, 'yyyy-MM-dd'),
+        pompa_id: id,
+        part_id: selectedIndex.value,
+        updated_by: dataUser.user?.user_metadata?.name ?? dataUser.user?.email
+    }
+    delete data.master_pompa_parts
+    const errorToast = await toastController.create({
+        message: 'Gagal menyimpan, mohon coba lagi',
+        duration: 2000,
+        position: 'top',
+        color: 'danger'
+    });
+    const validation = await validate(SubmitMonitoringData, data)
+    console.log(validation)
+    if (validation !== true) {
+        errorToast.message = validation[0].message
+        await errorToast.present()
+        return
+    }
+    const loadingToast = await toastController.create({
+        message: 'Menyimpan data...',
+        position: 'top',
+    });
+
+    await loadingToast.present();
+    const { error } = await supabase
+        .from('monitoring')
+        .upsert(data)
+    if (error) {
+        loadingToast.dismiss()
+        await errorToast.present()
+    } else {
+        loadingToast.dismiss()
+
+        const successToast = await toastController.create({
+            message: 'Data berhasil disimpan',
+            position: 'top',
+            color: 'success',
+            duration: 1500
+        });
+        onClose()
+        await successToast.present()
+    }
+
+
 }
 onBeforeMount(async () => {
     await Promise.all([
@@ -353,28 +428,6 @@ supabase
         //  = { ...payload.new as Monitoring, master_pompa_parts: temp.master_pompa_parts }
     })
     .subscribe()
-
-// return {
-//     monitoringData,
-//     pompaData,
-//     pompaPartData,
-//     router,
-//     date,
-//     format,
-//     caretDown,
-//     addOutline,
-//     openPicker,
-//     indonesia,
-//     selectPompaPart,
-//     selectedIndex,
-//     handleSelect,
-//     monitoringForm,
-//     handleSave,
-//     fetchMonitoringData,
-//     isOpen,
-//     onOpen,
-//     onClose
-// }
 
 
 </script>

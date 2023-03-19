@@ -66,8 +66,8 @@
                         </ion-item>
                         <div class="ion-padding" slot="content">
                             <div class="accord-item text-justify flex flex-col space-y-2 items-center">
-                                <P>Pada netral zone, udara panas dari oven dihisap pada bagian atas dan bawah untuk mencegah
-                                    kondensasi sebelum memasuki cooling zone/air shower.</P>
+                                <p>Pada netral zone, udara panas dari oven dihisap pada bagian atas dan bawah untuk mencegah
+                                    kondensasi sebelum memasuki cooling zone/air shower.</p>
                                 <img src="@/assets/img/netral-zone-1.jpg" alt="netral zone 1">
                                 <img src="@/assets/img/netral-zone-2.jpg" alt="netral zone 2">
                                 <img src="@/assets/img/netral-zone-3.jpg" alt="netral zone 3">
@@ -102,6 +102,8 @@
 import {
     RefreshablePage,
 } from '@/components'
+import { IonLabel, IonItem, IonAccordion, IonAccordionGroup } from '@ionic/vue';
+
 
 </script>
   
